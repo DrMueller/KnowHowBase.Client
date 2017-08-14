@@ -1,0 +1,14 @@
+@import "src/styles/_variables";
+
+.col-card__heading {
+  display: inline-block;
+}
+
+.col-card__content-div {
+  overflow: hidden;
+}
+
+.card-header {
+  background: $gray-light;
+  color: $white;
+}
