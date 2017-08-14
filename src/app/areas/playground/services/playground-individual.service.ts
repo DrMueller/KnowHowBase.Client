@@ -14,7 +14,7 @@ export class PlaygroundIndividualService {
   }
 
   public getIndividualsAsync(): Promise<Individual[]> {
-    const relativeUrl = 'Individuals';
+    const relativeUrl = 'Values';
     return this.playgroundHttpservice.getArrayAsync(relativeUrl, Individual);
   }
 }

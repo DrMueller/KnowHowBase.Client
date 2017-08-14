@@ -18,7 +18,6 @@ export class PlaygroundServerGetComponent implements OnInit {
   }
 
   private async getIndividualsAsync(): Promise<void> {
-    const relativeUrl = 'Individuals';
     this.individuals = await this.playgroundIndividualService.getIndividualsAsync();
   }
 }

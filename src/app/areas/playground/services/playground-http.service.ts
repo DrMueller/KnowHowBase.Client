@@ -11,6 +11,6 @@ export class PlaygroundHttpService extends HttpBaseService {
   }
 
   constructor(http: Http, environmentService: EnvironmentService) {
-    super(http, environmentService.microserviceBaseUrl);
+    super(http, environmentService.serviceBaseUrl);
   }
 }

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  microserviceBaseUrl: 'http://drmt.azurewebsites.net/api'
+  serviceBaseUrl: 'https://knowhowbaseserver.azurewebsites.net/api'
 };
