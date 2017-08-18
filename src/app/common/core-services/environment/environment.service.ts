@@ -9,7 +9,7 @@ export class EnvironmentService {
     return environment.production;
   }
 
-  public get serviceBaseUrl(): string {
-    return environment.serviceBaseUrl;
+  public get knowHowBaseServiceBaseUrl(): string {
+    return environment.knowHowBaseServiceBaseUrl;
   }
 }

@@ -10,7 +10,7 @@ import { AppNavigationService } from '../../services';
 })
 export class AppNavigationComponent implements OnInit {
   public get applicationTitle(): string {
-    return 'DMSP';
+    return 'KHB';
   }
 
   public appNavigationEntries: AppNavigationEntry[] = [];

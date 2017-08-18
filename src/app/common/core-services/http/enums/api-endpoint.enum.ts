@@ -1,3 +1,3 @@
 export enum ApiEndpoint {
-  TestMicroservice = 0
+  KnowHowBaseWebService = 0
 };

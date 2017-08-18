@@ -7,10 +7,10 @@ import { EnvironmentService } from 'app/common/core-services/environment';
 @Injectable()
 export class PlaygroundHttpService extends HttpBaseService {
   public get apiEndpoint() {
-    return ApiEndpoint.TestMicroservice;
+    return ApiEndpoint.KnowHowBaseWebService;
   }
 
   constructor(http: Http, environmentService: EnvironmentService) {
-    super(http, environmentService.serviceBaseUrl);
+    super(http, environmentService.knowHowBaseServiceBaseUrl);
   }
 }

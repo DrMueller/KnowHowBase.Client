@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  serviceBaseUrl: 'http://localhost:10457/api'
+  knowHowBaseServiceBaseUrl: 'http://localhost:10457/api'
 };

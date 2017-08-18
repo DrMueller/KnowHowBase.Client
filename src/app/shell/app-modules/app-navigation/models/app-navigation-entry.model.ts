@@ -1,4 +1,4 @@
 export class AppNavigationEntry {
-  constructor(public displayText: string, public baseUrl: string) {
+  constructor(public displayText: string, public baseUrl: string, public sequence: number) {
   }
 }

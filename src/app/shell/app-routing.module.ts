@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'playground',
     loadChildren: 'app/areas/playground/playground.module#PlaygroundModule'
   },
+  {
+    path: 'topicareas',
+    loadChildren: 'app/areas/topic-areas/topic-areas.module#TopicAreasModule'
+  }
 ];
 
 @NgModule({
