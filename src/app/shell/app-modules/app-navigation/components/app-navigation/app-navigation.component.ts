@@ -20,5 +20,4 @@ export class AppNavigationComponent implements OnInit {
   ngOnInit() {
     this.appNavigationEntries = this.appNavigationService.getNavigationEntries();
   }
-
 }

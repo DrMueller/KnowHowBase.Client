@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { TopicNavigationService } from '../../services/navigation';
-import { TopicNavigationEntry } from '../../models/navigation';
-import { TopicAreaType } from '../../models';
+import { TopicAreaNavigationFactoryService, TopicNavigationEntryBase } from '../../navigation';
+import { RouteConstants, } from '../..';
 
 @Component({
   selector: 'app-topic-area',
@@ -11,16 +10,15 @@ import { TopicAreaType } from '../../models';
   styleUrls: ['./topic-area.component.scss']
 })
 export class TopicAreaComponent implements OnInit {
+  public navigationEntries: TopicNavigationEntryBase[] = [];
 
-  public navigationEntries: TopicNavigationEntry[] = [];
-
-  constructor(private topicNavigationService: TopicNavigationService, private route: ActivatedRoute) { }
+  constructor(private topicAreaNavigationFactory: TopicAreaNavigationFactoryService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(f => {
-      const topicAreaTypeName = f.get('topicAreaTypeName')!;
-      const topicAreaType = TopicAreaType[topicAreaTypeName];
-      this.navigationEntries = this.topicNavigationService.getTopicsByAreaType(topicAreaType);
+      const topicAreaId = parseInt(f.get(RouteConstants.PARAM_TOPIC_AREA_ID)!, 10);
+      const topicAreaNavigationEntry = this.topicAreaNavigationFactory.createById(topicAreaId);
+      this.navigationEntries = topicAreaNavigationEntry.topicNavigationEntries;
     });
   }
 }

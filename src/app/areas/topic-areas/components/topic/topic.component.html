@@ -1,11 +1,29 @@
 <div class="row">
   <div class="col-9 col-sm-10 col-md-10 col-lg-11 col-xl-11">
-    <ul class="nav nav-tabs">
-      <li *ngFor="let navEntry of navigationEntries" class="nav-item">
-        <button (click)="knowledgeDocumentSelected(navEntry.id)" class="btn btn-primary">{{ navEntry.displayName }}</button>
-      </li>
-    </ul>
+    <div class="row">
+      <div class="col-8">
+        <div class="nav nav-tabs">
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary" *ngFor="let navEntry of navigationEntries" (click)="knowledgeDocumentSelected(navEntry.id)">
+              <input type="radio" autocomplete="off" >{{ navEntry.displayName }}
+            </label>
+          </div>
+        </div>
+      </div>
 
-    <app-knowledge-document [knowledgeDocumentId]="selectedKnowledgeDocumentId"></app-knowledge-document>
+      <div class="col-4">
+        <div class="topic--edit">
+          <div *ngIf="!editMode">
+            <button class="btn btn-secondary" (click)="editKnowledgeDocumentClicked()">Edit</button>
+          </div>
+          <div *ngIf="editMode">
+            <button class="btn btn-primary" (click)="saveClicked()">Save</button>
+            <button class="btn btn-secondary" (click)="cancelClicked()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-knowledge-document [editMode]="editMode" [document]="selectedDocument"></app-knowledge-document>
   </div>
 </div>

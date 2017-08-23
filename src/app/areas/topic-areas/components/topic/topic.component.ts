@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { KnowledgeDocumentNavigationService } from '../../services/navigation';
-import { KnowledgeDocumentNavigationEntry } from '../../models/navigation';
+import { JsObjFactory } from 'app/common/utilities';
+
+import { RouteConstants } from '../..';
+import { KnowledgeDocumentService } from '../../data/services';
+import { KnowledgeDocument } from '../../data/models';
+
+import { TopicAreaNavigationFactoryService } from '../../navigation/services';
+import { KnowledgeDocumentNavigationEntry } from '../../navigation/models';
 
 @Component({
   selector: 'app-topic',
@@ -11,19 +17,47 @@ import { KnowledgeDocumentNavigationEntry } from '../../models/navigation';
 })
 export class TopicComponent implements OnInit {
   public navigationEntries: KnowledgeDocumentNavigationEntry[] = [];
-  public selectedKnowledgeDocumentId = 0;
 
-  constructor(private route: ActivatedRoute, private knowledgeDocumentService: KnowledgeDocumentNavigationService) { }
+  private selectedDocumentCopy: KnowledgeDocument;
+  public selectedDocument: KnowledgeDocument = KnowledgeDocument.nullObject();
+
+  public editMode = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private knowledgeDocumentService: KnowledgeDocumentService,
+    private topicAreaNavigationFactory: TopicAreaNavigationFactoryService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(f => {
-      const routeTopicId = f.get('topicId')!;
-      const topicId = parseInt(routeTopicId, 10);
-      this.navigationEntries = this.knowledgeDocumentService.getNavigationEntriesByTopicId(topicId);
+      const topicId = parseInt(f.get(RouteConstants.PARAM_TOPIC_ID)!, 10);
+      const routeTopicAreaId = this.route.parent!.snapshot.paramMap.get(RouteConstants.PARAM_TOPIC_AREA_ID)!;
+      const topicAreaid = parseInt(routeTopicAreaId, 10);
+
+      const topicArea = this.topicAreaNavigationFactory.createById(topicAreaid);
+      const topic = topicArea.topicNavigationEntries.find(nav => nav.id === topicId)!;
+
+      this.navigationEntries = topic.knowledgeDocumentNavigationEntries;
     });
   }
 
-  public knowledgeDocumentSelected(id: number): void {
-    this.selectedKnowledgeDocumentId = id;
+  public async knowledgeDocumentSelected(id: number): Promise<void> {
+    this.editMode = false;
+    this.selectedDocument = await this.knowledgeDocumentService.getKnowledgeDocumentAsync(id);
+    this.selectedDocumentCopy = JsObjFactory.create(this.selectedDocument, KnowledgeDocument);
+  }
+
+  public editKnowledgeDocumentClicked(): void {
+    this.editMode = true;
+  }
+
+  public cancelClicked(): void {
+    this.editMode = false;
+    this.selectedDocument = this.selectedDocumentCopy;
+  }
+
+  public async saveClicked(): Promise<void> {
+    this.editMode = false;
+    this.selectedDocument = await this.knowledgeDocumentService.saveKnowledgeDocumentAsync(this.selectedDocument);
   }
 }

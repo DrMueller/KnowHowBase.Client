@@ -56,7 +56,7 @@ export abstract class HttpBaseService {
     return result;
   }
 
-  public putASync<T>(
+  public putAsync<T>(
     relativeUrl: string,
     body: any,
     ctor: IParameterlessConstructor<T> | null = null,

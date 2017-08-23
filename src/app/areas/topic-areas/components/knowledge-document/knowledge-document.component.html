@@ -1,3 +1,11 @@
-<p>
-  <markdown style="background: white" [data]="knowledgeDocument.markdownText"></markdown>
-</p>
+<div class="kd kd--border">
+    <div *ngIf="!editMode">
+      <markdown-to-html [data]="knowledgeDocument.markdownText"></markdown-to-html>
+    </div>
+  
+    <div *ngIf="editMode">
+      <div>
+        <textarea [(ngModel)]="knowledgeDocument.markdownText" class="kd--textarea"></textarea>
+      </div>
+    </div>
+  </div>

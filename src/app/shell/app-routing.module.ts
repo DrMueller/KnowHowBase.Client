@@ -4,16 +4,8 @@ import { Routes, Router, RouterModule, PreloadAllModules } from '@angular/router
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/topicareas',
     pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    loadChildren: 'app/areas/home/home.module#HomeModule'
-  },
-  {
-    path: 'playground',
-    loadChildren: 'app/areas/playground/playground.module#PlaygroundModule'
   },
   {
     path: 'topicareas',

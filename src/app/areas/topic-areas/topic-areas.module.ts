@@ -1,29 +1,36 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
-import { MarkdownModule } from 'angular2-markdown';
+import { MarkdownToHtmlModule } from 'ng2-markdown-to-html';
 
 import { TopicAreasRoutingModule } from './topic-areas-routing.module';
 import * as comp from './components';
-import * as serv from './services';
-import * as navServ from './services/navigation';
+import * as navServ from './navigation/services';
+import * as dataServ from './data/services';
 
 @NgModule({
   imports: [
     CommonModule,
     TopicAreasRoutingModule,
-    MarkdownModule
+    MarkdownToHtmlModule,
+    FormsModule
   ],
   declarations: [
     comp.TopicAreaComponent,
     comp.TopicComponent,
-    comp.KnowledgeDocumentComponent
-  ],
-  providers: [
-    navServ.KnowledgeDocumentNavigationService,
-    navServ.TopicNavigationService,
-    serv.KnowledgeDocumentService,
-    serv.TopicAreasHttpService
+    comp.KnowledgeDocumentComponent,
   ]
 })
-export class TopicAreasModule { }
+export class TopicAreasModule {
+  public static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: TopicAreasModule,
+      providers: [
+        navServ.TopicAreaNavigationFactoryService,
+        dataServ.KnowledgeDocumentService,
+        dataServ.TopicAreasHttpService
+      ]
+    };
+  }
+}

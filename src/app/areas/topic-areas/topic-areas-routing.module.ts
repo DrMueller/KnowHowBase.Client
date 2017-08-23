@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { RouteConstants } from './route-constants';
 import * as comp from './components';
 
-const routes: Routes = [
+export const paramTopicAreaId = RouteConstants.PARAM_TOPIC_AREA_ID;
+export const paramTopicId = RouteConstants.PARAM_TOPIC_ID;
+
+export const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: ':topicAreaTypeName', component: comp.TopicAreaComponent, children: [
-          { path: ':topicId', component: comp.TopicComponent }
+        path: `:${paramTopicAreaId}`, component: comp.TopicAreaComponent, children: [
+          { path: `:${paramTopicId}`, component: comp.TopicComponent }
         ]
       }
     ]
